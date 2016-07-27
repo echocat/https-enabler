@@ -17,7 +17,8 @@ Download your version from the [releases page](https://github.com/echocat/https-
 
 Example:
 ```bash
-sudo curl -SL https://github.com/echocat/https-enabler/releases/download/v0.1.0/https-enabler-linux-amd64 > /usr/bin/https-enabler
+sudo curl -SL https://github.com/echocat/https-enabler/releases/download/v0.1.0/https-enabler-linux-amd64 \
+    > /usr/bin/https-enabler
 sudo chmod +x /usr/bin/https-enabler
 ```
 
