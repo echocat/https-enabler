@@ -61,7 +61,7 @@ https-enabler -listen.address=:8443 \
 
 ## Build
 
-#### Precondition
+### Precondition
 
 For building https-enabler there is only:
 
@@ -72,7 +72,7 @@ There is no need for a working and installed Go installation (or anything else).
 
 > **Hint:** The Go runtime build by the build system will be placed under ``~/.go-bootstrap``.
 
-#### Run
+### Run
 
 On Linux and Mac OS X:
 ```bash
