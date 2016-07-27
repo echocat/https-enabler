@@ -18,7 +18,6 @@ golang {
                 "main.name"       : name,
                 "main.version"    : version,
                 "main.group"      : group,
-                "main.description": description,
         ]
     }
 }

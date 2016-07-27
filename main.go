@@ -11,7 +11,7 @@ import (
 var (
 	name        = "https-enabler"
 	version     = "devel"
-	description = ""
+	description = "Simple proxy to add HTTPS to endpoints that only support HTTP."
 )
 
 var (
