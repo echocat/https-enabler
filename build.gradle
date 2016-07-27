@@ -1,0 +1,22 @@
+plugins {
+    id "org.echocat.golang" version "0.1.2"
+}
+
+final name = 'https-enabler'
+group 'github.com/echocat/https-enabler'
+description 'TODO!'
+
+dependencies {
+}
+
+golang {
+    build {
+        useTemporaryGopath = true
+        definitions = [
+                "main.name"   : name,
+                "main.version": version,
+                "main.group"  : group,
+                "main.description"  : description,
+        ]
+    }
+}
