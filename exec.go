@@ -7,7 +7,6 @@ import (
 	"strconv"
 	"strings"
 	"syscall"
-	"time"
 )
 
 type execution struct {
@@ -20,8 +19,6 @@ func runEnclosedCommand(command string, arguments []string) {
 
 	go execution.listenToSignals(signalChannel)
 	go execution.runChecked()
-	time.Sleep(1 * time.Second)
-	sendSignal(execution.command.Process, syscall.SIGKILL)
 }
 
 func (instance *execution) listenToSignals(signalChannel chan os.Signal) {
