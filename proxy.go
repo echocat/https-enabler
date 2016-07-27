@@ -7,6 +7,8 @@ import (
 	"net/http"
 )
 
+var client = &http.Client{}
+
 func startHttpsServer(listenAddress, listenCert, listenPrivateKey, listenCa string) {
 	proxy := &proxy{}
 
@@ -44,7 +46,6 @@ type proxy struct {
 }
 
 func (instance *proxy) ServeHTTP(writer http.ResponseWriter, in *http.Request) {
-	client := &http.Client{}
 	requestUrl := *in.URL
 	requestUrl.Scheme = "http"
 	requestUrl.Host = *connectAddress
