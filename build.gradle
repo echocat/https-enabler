@@ -1,10 +1,12 @@
 plugins {
     id "org.echocat.golang" version "0.1.2"
+    id "co.riiid.gradle" version "0.4.2"
 }
 
 final name = 'https-enabler'
 group 'github.com/echocat/https-enabler'
-description 'TODO!'
+description 'Simple proxy to add HTTPS to endpoints that only support HTTP.'
+version '0.1.0'
 
 dependencies {
 }
@@ -13,10 +15,26 @@ golang {
     build {
         useTemporaryGopath = true
         definitions = [
-                "main.name"   : name,
-                "main.version": version,
-                "main.group"  : group,
-                "main.description"  : description,
+                "main.name"       : name,
+                "main.version"    : version,
+                "main.group"      : group,
+                "main.description": description,
         ]
     }
+}
+
+github {
+    owner = 'echocat'
+    repo = name
+    token = "${System.getenv('GITHUB_TOKEN')}"
+    tagName = "v${version}"
+    targetCommitish = 'master'
+    name = version
+    assets = [
+            'build/out/https-enabler-darwin-amd64',
+            'build/out/https-enabler-linux-386',
+            'build/out/https-enabler-linux-amd64',
+            'build/out/https-enabler-windows-386.exe',
+            'build/out/https-enabler-windows-amd64.exe',
+    ]
 }
