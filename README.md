@@ -1,6 +1,6 @@
 # https-enabler
 
-Simple proxy to add HTTPS to endpoints that only supports HTTP.
+Simple proxy to add HTTPS to endpoints that only support HTTP.
 
 ## Initial idea
 
@@ -11,7 +11,19 @@ But in a world wide network of services that should communicate directly with ea
 
 https-enabler solve the leak of support in these tools. 
 
-## Usage
+## Get it
+
+Download your version from the [releases page](https://github.com/echocat/https-enabler/releases/latest). For older version see [archive page](https://github.com/echocat/https-enabler/releases).
+
+Example:
+```bash
+sudo curl -SL https://github.com/echocat/https-enabler/releases/download/v0.1.0/https-enabler-linux-amd64 > /usr/bin/https-enabler
+sudo chmod +x /usr/bin/https-enabler
+```
+
+## Use it
+
+### Usage
 
 ```
 Usage: https-enabler <flags> [<enclosed tool to start> [<args to pass to tool>]]
@@ -33,7 +45,7 @@ Flags:
         If not provided: The private key should be contained also in 'listen.cert' PEM file.
 ```
 
-## Examples
+### Examples
 
 ```bash
 # Connect to a local HTTP only web server on 8080 and expose it on every network interface on 8443.
@@ -59,7 +71,7 @@ https-enabler -listen.address=:8443 \
 
 ```
 
-## Build
+## Build it
 
 ### Precondition
 
@@ -72,7 +84,7 @@ There is no need for a working and installed Go installation (or anything else).
 
 > **Hint:** The Go runtime build by the build system will be placed under ``~/.go/sdk``.
 
-### Run
+### Run build process
 
 On Linux and Mac OS X:
 ```bash
@@ -81,6 +93,10 @@ On Linux and Mac OS X:
 
 # Run tests (includes compile)
 ./gradlew test
+
+# Build binaries and release it on GitHub
+# Environment variable GITHUB_TOKEN is required
+./gradlew build githubRelease
 ```
 
 On Windows:
@@ -90,6 +106,10 @@ gradlew build
 
 # Run tests (includes compile)
 gradlew test
+
+# Build binaries and release it on GitHub
+# Environment variable GITHUB_TOKEN is required
+gradlew build githubRelease
 ```
 
 ### Build artifacts
