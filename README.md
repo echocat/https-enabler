@@ -89,10 +89,10 @@ There is no need for a working and installed Go installation (or anything else).
 
 On Linux and Mac OS X:
 ```bash
-# Build binaries only
+# Build binaries (includes test)
 ./gradlew build
 
-# Run tests (includes compile)
+# Run tests (but do not build binaries)
 ./gradlew test
 
 # Build binaries and release it on GitHub
@@ -102,10 +102,10 @@ On Linux and Mac OS X:
 
 On Windows:
 ```bash
-# Build binaries only
+# Build binaries (includes test)
 gradlew build
 
-# Run tests (includes compile)
+# Run tests (but do not build binaries)
 gradlew test
 
 # Build binaries and release it on GitHub
