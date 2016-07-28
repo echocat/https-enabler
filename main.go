@@ -15,17 +15,17 @@ var (
 )
 
 var (
-	listenAddress = flag.String("listen.address", ":9000", "Address to listen on to serve the HTTPS socket to access from the outsite world.")
-	listenCert    = flag.String("listen.cert", "", "Path to PEM file that contains the certificate (and optionally also the private key in PEM format)\n"+
-		"    \tto create the HTTPS socket with.\n"+
-		"    \tThis should include the whole certificate chain.")
+	listenAddress = flag.String("listen.address", ":9000", " Address to serve the HTTPS socket for access from the outsite world.")
+	listenCert    = flag.String("listen.cert", "", "Path to PEM file that contains the certificate (and optionally also the private key in PEM format) \n"+
+		"    \tto create the HTTPS socket with. \n" +
+		"    \tThe whole certificate chain must be included.")
 	listenPrivateKey = flag.String("listen.private-key", "", "Path to PEM file that contains the private-key.\n"+
-		"    \tIf not provided: The private key should be contained also in 'listen.cert' PEM file.")
-	listenCa = flag.String("listen.ca", "", "Path to PEM file that conains the CAs that are trused for incoming client connections.\n"+
-		"    \tIf provided: Connecting clients should present a certificate signed by one of this CAs.\n"+
-		"    \tIf not provided: Expected that 'listen.cert' also contains CAs to trust.")
+		"    \tIf not provided: The private key should be contained in the 'listen.cert' PEM file.")
+	listenCa = flag.String("listen.ca", "", "Path to PEM file that contains the CAs that are trused for incoming client connections.\n"+
+		"    \tIf provided: Connecting clients must present a certificate signed by one of these CAs.\n"+
+		"    \tIf not provided: Expects that 'listen.cert' also contains CAs to trust.")
 
-	connectAddress = flag.String("connect.address", "", "Address to connect to and proxy this content to 'listen.address'.")
+	connectAddress = flag.String("connect.address", "", "Address to connect to and proxy content to 'listen.address'.")
 
 	enclosedCommand          = ""
 	enclosedCommandArguments = []string{}

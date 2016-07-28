@@ -4,16 +4,15 @@ Simple proxy to add HTTPS to endpoints that only support HTTP.
 
 ## Initial idea
 
-This was originally designed to solve the problem that [Prometheus exporters normally has no
- HTTPS support](https://prometheus.io/docs/introduction/faq/#why-don't-the-prometheus-server-components-support-tls-or-authentication?-can-i-add-those?).
- 
-But in a world wide network of services that should communicate directly with each other (without overhead of VPN tunnels that does not scale) we need HTTPS (TLS) for a secure communication.
+This was originally designed to solve the problem that [Prometheus exporters normally has no HTTPS support](https://prometheus.io/docs/introduction/faq/#why-don't-the-prometheus-server-components-support-tls-or-authentication?-can-i-add-those?).
 
-https-enabler solve the leak of support in these tools. 
+If you want to be able to host your services in different datacenters and use the Internet for service-to-service communication, or you cannot guarantee that the network your services communicate with is safe and you do not want the overhead of VPN tunnels you'll need HTTPS (TLS) for a secure communication.
+
+https-enabler solves the leak of TLS support in some tools. 
 
 ## Get it
 
-Download your version from the [releases page](https://github.com/echocat/https-enabler/releases/latest). For older version see [archive page](https://github.com/echocat/https-enabler/releases).
+Download the current version from the [releases page](https://github.com/echocat/https-enabler/releases/latest). For older version see [archive page](https://github.com/echocat/https-enabler/releases).
 
 Example:
 ```bash
@@ -27,44 +26,44 @@ sudo chmod +x /usr/bin/https-enabler
 ### Usage
 
 ```
-Usage: https-enabler <flags> [<enclosed tool to start> [<args to pass to tool>]]
+Usage: https-enabler <flags> [<wrapped tool to start> [<args to pass to tool>]]
 Flags:
   -connect.address string
-        Address to connect to and proxy this content to 'listen.address'.
+        Address to connect to and proxy content to 'listen.address'.
   -listen.address string
-        Address to listen on to serve the HTTPS socket to access from the outsite world. (default ":9000")
+        Address to serve the HTTPS socket for access from the outsite world. (default ":9000")
   -listen.ca string
-        Path to PEM file that conains the CAs that are trused for incoming client connections.
-        If provided: Connecting clients should present a certificate signed by one of this CAs.
-        If not provided: Expected that 'listen.cert' also contains CAs to trust.
+        Path to PEM file that contains the CAs that are trused for incoming client connections.
+        If provided: Connecting clients must present a certificate signed by one of these CAs.
+        If not provided: Expects that 'listen.cert' also contains CAs to trust.
   -listen.cert string
         Path to PEM file that contains the certificate (and optionally also the private key in PEM format)
         to create the HTTPS socket with.
-        This should include the whole certificate chain.
+        The whole certificate chain must be included.
   -listen.private-key string
         Path to PEM file that contains the private-key.
-        If not provided: The private key should be contained also in 'listen.cert' PEM file.
+        If not provided: The private key should be contained in the 'listen.cert' PEM file.
 ```
 
 ### Examples
 
 ```bash
-# Connect to a local HTTP only web server on 8080 and expose it on every network interface on 8443.
-# We expect that my.server.com.pem contains privateKey, certificate and CA chain.
+# Connecting to a local HTTP only web server on port 8080 and exposing it on every network interface on port 8443.
+# Expects the my.server.com.pem file to contain the client privateKey, the client certificate and the CA chain.
 https-enabler -listen.address=:8443 \
     -listen.cert=my.server.com.pem \
     -connect.address=localhost:8080
 
-# Connect to a local HTTP only web server on 8080 and expose it on every network interface on 8443.
-# We expect that my.server.com.pem contains certificate and CA chain.
-# ... And my.server.com.key contains only the privateKey.
+# Connecting to a local HTTP only web server on port 8080 and exposing it on every network interface on port 8443.
+# Expects the my.server.com.pem file to contain the client certificate and the CA chain.
+# ... And the my.server.com.key file to contain only the client privateKey.
 https-enabler -listen.address=:8443 \
     -listen.cert=my.server.com.pem \
     -listen.private-key=my.server.com.key \
     -connect.address=localhost:8080
 
-# Like the first example but also start the prometheus node_exporter and connect it node_exporter
-# itself only to localhost:8080 so nobody from the outside world can access it without client certificate.
+# Like the first example but also start the prometheus node_exporter and exposes it on port 8443 in a secure way. The
+# node_exporter is bound to localhost only to prevent access from the network.
 https-enabler -listen.address=:8443 \
     -listen.cert=my.server.com.pem \
     -connect.address=localhost:9100 \
@@ -76,10 +75,10 @@ https-enabler -listen.address=:8443 \
 
 ### Precondition
 
-For building https-enabler there is only:
+For building https-enabler you need:
 
 1. a compatible operating system (Linux, Windows or Mac OS X)
-2. and a working [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html) installation required.
+2. and a working [Java 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html) installation.
 
 There is no need for a working and installed Go installation (or anything else). The build system will download every dependency and build it if necessary.
 
@@ -115,7 +114,7 @@ gradlew build githubRelease
 
 ### Build artifacts
 
-* Compiled and lined binaries can be found under ``./build/out/https-enabler-*``
+* Compiled and linked binaries can be found under ``./build/out/https-enabler-*``
 
 ## Contributing
 
